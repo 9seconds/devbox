@@ -14,14 +14,20 @@
 - name: add nodejs repositories
   become: true
   apt_repository:
-    repo: "{{ item }}"
+    repo: deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main
+    filename: nodejs
     state: present
     update_cache: yes
-  with_items:
-  - deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main
-  - deb https://dl.yarnpkg.com/debian/ stable main
 
-- name: install nodjs
+- name: add yarn repositories
+  become: true
+  apt_repository:
+    repo: deb https://dl.yarnpkg.com/debian/ stable main
+    state: present
+    filename: yarn
+    update_cache: yes
+
+- name: install nodejs
   become: true
   apt:
     name: "{{ item }}"

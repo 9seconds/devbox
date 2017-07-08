@@ -5,11 +5,11 @@
 - name: clone dotfiles
   git:
     accept_hostkey: yes
-    dest: "~{{ ansible_user }}/.dotfiles"
+    dest: ~/.dotfiles
     repo: "{{ dotfiles_link }}"
 
 - name: stow dotfiles
-  command: stow -t "~{{ ansible_user }}" -R {{ item | quote }}
+  command: stow -t ~ -R {{ item | quote }}
   args:
-    chdir: "~{{ ansible_user }}/.dotfiles"
+    chdir: ~/.dotfiles
   with_items: "{{ stow_dotfiles }}"

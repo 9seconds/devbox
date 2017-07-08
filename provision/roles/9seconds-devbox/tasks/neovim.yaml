@@ -7,6 +7,7 @@
   apt_repository:
     repo: ppa:neovim-ppa/unstable
     state: present
+    filename: neovim
     update_cache: yes
 
 - name: install neovim
@@ -51,7 +52,9 @@
   - ~/.local/share/nvim/site/autoload/plug.vim
 
 - name: create pyenvs for neovim
-  command: /usr/bin/zsh -ic 'pyenv virtualenv {{ item.value | quote }} {{ item.key | quote }} || true'
+  command: >
+    /usr/bin/zsh -ic
+    'pyenv virtualenv -f {{ item.value | quote }} {{ item.key | quote }}'
   with_dict:
     neovim2: "{{ pyenv_python2 }}"
     neovim3: "{{ pyenv_python3 }}"
@@ -71,7 +74,8 @@
   - 3
 
 - name: install neovim package into pythons
-  command: /usr/bin/zsh -ic 'pyenv activate {{ item }} && pip install neovim'
+  command: >
+    /usr/bin/zsh -ic 'pyenv activate {{ item }} && pip install neovim'
   with_items:
   - neovim2
   - neovim3

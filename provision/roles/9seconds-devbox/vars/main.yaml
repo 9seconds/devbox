@@ -32,12 +32,15 @@ apt_mandatory_packages:
 - keychain
 - libapt-pkg-dev
 - libbz2-dev
+- libffi-dev
 - libncurses5-dev
 - libncursesw5-dev
 - libreadline-dev
 - libsqlite3-dev
 - libssl-dev
 - libtool
+- libxml2-dev
+- libxslt1-dev
 - llvm
 - locales
 - ncurses-term
@@ -105,6 +108,7 @@ stow_dotfiles:
 - scripts
 - tmux
 - vim
+- zsh
 
 pip3_packages: {}
 pip2_packages:
