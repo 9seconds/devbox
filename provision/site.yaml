@@ -2,20 +2,20 @@
 # vim: set ft=ansible:
 
 
-# - hosts: all
-#   become: true
-#   gather_facts: false
-#   tasks:
-#   - name: install ansible dependencies
-#     raw: >
-#       sh -c
-#       'apt-get update && apt-get install -y --no-install-recommends {{ deps | join(" ") }}'
-#     vars:
-#       deps:
-#       - aptitude
-#       - python
-#       - python3-apt
-#       - python-apt
+- hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+  - name: install ansible dependencies
+    raw: >
+      sh -c
+      'apt-get update && apt-get install -y --no-install-recommends {{ deps | join(" ") }}'
+    vars:
+      deps:
+      - aptitude
+      - python
+      - python3-apt
+      - python-apt
 
 - hosts: all
   environment:
@@ -24,4 +24,4 @@
     DEBIAN_FRONTEND: noninteractive
   gather_facts: true
   roles:
-  - 9seconds-base
+  - 9seconds-devbox
