@@ -1,0 +1,13 @@
+---
+# vim: set ft=ansible:
+
+
+- name: create htop config directory
+  file:
+    path: "~{{ ansible_user }}/.config/htop"
+    state: directory
+
+- name: copy htoprc
+  copy:
+    src: htoprc
+    dest: "~{{ ansible_user }}/.config/htop/htoprc"

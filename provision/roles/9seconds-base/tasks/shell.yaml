@@ -1,0 +1,15 @@
+---
+# vim: set ft=ansible:
+
+
+- name: set shell
+  become: true
+  user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/zsh
+
+- name: update antigen
+  command: /usr/bin/zsh -ic 'antigen {{ item | quote }}'
+  with_items:
+  - update
+  - cleanup

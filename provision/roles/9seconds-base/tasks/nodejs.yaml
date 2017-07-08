@@ -1,0 +1,37 @@
+---
+# vim: set ft=ansible:
+
+
+- name: add nodejs apt keys
+  become: true
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items:
+  - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+  - https://dl.yarnpkg.com/debian/pubkey.gpg
+
+- name: add nodejs repositories
+  become: true
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+  - deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main
+  - deb https://dl.yarnpkg.com/debian/ stable main
+
+- name: install nodjs
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - nodejs
+  - yarn
+
+- name: install ternjs
+  npm:
+    name: tern
+    state: latest
+    global: yes

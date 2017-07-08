@@ -1,0 +1,18 @@
+---
+# vim: set ft=ansible:
+
+- name: restart timesyncd
+  become: true
+  systemd:
+    daemon_reload: yes
+    name: systemd-timesyncd
+    state: restarted
+    enabled: yes
+
+- name: restart docker
+  become: true
+  systemd:
+    daemon_reload: yes
+    name: docker
+    state: restarted
+    enabled: yes

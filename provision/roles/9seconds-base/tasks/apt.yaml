@@ -1,0 +1,50 @@
+---
+# vim: set ft=ansible:
+
+
+- name: copy sources.list
+  become: true
+  template:
+    src: sources.list.j2
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: 0644
+
+- name: remove apt packages
+  become: true
+  apt:
+    name: "{{ item }}"
+    purge: yes
+    autoremove: yes
+    state: absent
+  with_items: "{{ apt_packages_to_remove }}"
+
+- name: upgrade apt packages
+  become: true
+  apt:
+    update_cache: yes
+    upgrade: full
+
+- name: remove obsolete stuff
+  become: true
+  command: apt autoremove --purge --yes
+
+- name: install mandatory packages
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ apt_mandatory_packages }}"
+
+- name: find out tmux version
+  shell: tmux -V | cut -f2- -d' '
+  register: tmux_version
+  changed_when: false
+
+- name: install tmux >= 2.1
+  become: true
+  apt:
+    deb: "{{ tmux_deb_link }}"
+    state: present
+  when: "{{ tmux_version.stdout | version_compare('2.2', '<') }}"

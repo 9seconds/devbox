@@ -37,4 +37,5 @@ Vagrant.configure("2") do |config|
     devbox.vm.provision "ansible" do |ansible|
       ansible.playbook = "provision/site.yaml"
     end
+  end
 end

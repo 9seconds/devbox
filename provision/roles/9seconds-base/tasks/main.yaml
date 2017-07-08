@@ -1,0 +1,16 @@
+---
+# vim: set ft=ansible:
+
+
+- include: ./apt.yaml
+- include: ./ntp.yaml
+- include: ./locales.yaml
+- include: ./ssh.yaml
+- include: ./htop.yaml
+- include: ./pip.yaml
+- include: ./nodejs.yaml
+- include: ./docker.yaml
+- include: ./dotfiles.yaml
+- include: ./shell.yaml
+- include: ./pyenv.yaml
+- include: ./neovim.yaml

@@ -1,0 +1,20 @@
+---
+# vim: set ft=ansible:
+
+
+- name: clone pyenv
+  git:
+    repo: https://github.com/yyuu/pyenv.git
+    dest: "~{{ ansible_user }}/.pyenv"
+    version: master
+
+- name: install pyenv plugins
+  git:
+    repo: "{{ item.repo }}"
+    dest: "~{{ ansible_user }}/.pyenv/plugins/{{ item.name }}"
+    version: master
+  with_items: "{{ pyenv_plugins }}"
+
+- name: install pyenv pythons
+  command: /usr/bin/zsh -ic 'pyenv install {{ item | quote }}'
+  with_items: "{{ pyenv_pythons }}"

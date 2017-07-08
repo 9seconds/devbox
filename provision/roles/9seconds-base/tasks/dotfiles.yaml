@@ -1,0 +1,15 @@
+---
+# vim: set ft=ansible:
+
+
+- name: clone dotfiles
+  git:
+    accept_hostkey: yes
+    dest: "~{{ ansible_user }}/.dotfiles"
+    repo: "{{ dotfiles_link }}"
+
+- name: stow dotfiles
+  command: stow -t "~{{ ansible_user }}" -R {{ item | quote }}
+  args:
+    chdir: "~{{ ansible_user }}/.dotfiles"
+  with_items: "{{ stow_dotfiles }}"
