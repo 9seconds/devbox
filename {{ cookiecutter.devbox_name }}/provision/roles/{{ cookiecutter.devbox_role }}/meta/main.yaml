@@ -1,0 +1,6 @@
+---
+# vim: set ft=ansible:
+
+
+dependencies:
+- role: 9seconds-devbox
