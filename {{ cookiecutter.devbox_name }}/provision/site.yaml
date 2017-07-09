@@ -18,5 +18,4 @@
     DEBIAN_FRONTEND: noninteractive
   gather_facts: true
   roles:
-  - 9seconds-devbox
   - {{ cookiecutter.devbox_role }}
