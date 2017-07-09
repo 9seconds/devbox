@@ -34,6 +34,16 @@ Vagrant.configure("2") do |config|
       lv.nic_model_type       = "virtio"
     end
 
+    if not Vagrant.has_plugin?("vagrant-host-shell")
+      print "Ansible Galaxy roles should be installed."
+      print "Please run ansible-galaxy install -r ansible-requirements.yaml"
+      print "Or install vagrant-host-shell plugin"
+    end
+
+    devbox.vm.provision :host_shell do |host_shell|
+      host_shell.inline = 'ansible-galaxy install -r ansible-requirements.yaml'
+    end
+
     devbox.vm.provision "ansible" do |ansible|
       ansible.playbook = "provision/site.yaml"
     end
