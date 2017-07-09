@@ -9,13 +9,7 @@
   - name: install ansible dependencies
     raw: >
       sh -c
-      'apt-get update && apt-get install -y --no-install-recommends {{ deps | join(" ") }}'
-    vars:
-      deps:
-      - aptitude
-      - python
-      - python3-apt
-      - python-apt
+      'apt-get update && apt-get install -y --no-install-recommends aptitude python python-apt python3-apt'
 
 - hosts: all
   environment:
@@ -25,3 +19,4 @@
   gather_facts: true
   roles:
   - 9seconds-devbox
+  - {{ cookiecutter.devbox_role }}

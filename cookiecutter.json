@@ -1,8 +1,5 @@
 {
     "devbox_name": "devbox",
     "hostname": "{{ cookiecutter.devbox_name }}",
-    "devbox_role": "{{ cookiecutter.devbox_name }}-devbox",
-    "_copy_without_render": [
-        "provision/site.yaml"
-    ]
+    "devbox_role": "{{ cookiecutter.devbox_name }}-devbox"
 }
