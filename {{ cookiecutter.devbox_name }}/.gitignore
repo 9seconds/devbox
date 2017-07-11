@@ -1,4 +1,5 @@
 tags
+*.retry
 .vagrant/
 provision/roles/9seconds-devbox
 repos/
