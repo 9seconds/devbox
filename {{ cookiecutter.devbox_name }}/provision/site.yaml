@@ -11,6 +11,15 @@
       sh -c
       'apt-get update && apt-get install -y --no-install-recommends aptitude python python-apt python3-apt'
 
+  - name: remove puppet labs stuff
+    file:
+      name: "{{ item }}"
+      state: absent
+    with_items:
+    - /etc/apt/sources.list.d/puppetlabs-pc1.list
+    - /etc/apt/trusted.gpg.d/puppetlabs-pc1-keyring.gpg
+
+
 - hosts: all
   environment:
     LANG: C.UTF-8
