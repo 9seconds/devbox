@@ -19,6 +19,12 @@
     - /etc/apt/sources.list.d/puppetlabs-pc1.list
     - /etc/apt/trusted.gpg.d/puppetlabs-pc1-keyring.gpg
 
+  - name: remove elastic user
+    user:
+      name: elastic
+      state: absent
+      remove: yes
+
 
 - hosts: all
   environment:
