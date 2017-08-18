@@ -10,6 +10,7 @@
     raw: >
       sh -c
       'apt-get update && apt-get install -y --no-install-recommends aptitude python python-apt python3-apt'
+    changed_when: false
 
   - name: remove puppet labs stuff
     file:
