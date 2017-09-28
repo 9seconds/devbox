@@ -2,48 +2,53 @@
 # vi: set ft=ruby :
 
 
-Vagrant.configure("2") do |config|
+CURRENT_DIR = File.expand_path(File.dirname(__FILE__))
+ANSIBLE_TAGS = ENV.fetch('ANSIBLE_TAGS', 'all')
+
+
+Vagrant.configure('2') do |config|
   config.vm.box_check_update = false
   config.ssh.forward_agent   = true
 
-  config.vm.define "devbox", primary: true do |devbox|
-    devbox.vm.hostname = "{{ cookiecutter.hostname }}"
-    devbox.vm.network "private_network", ip: "{{ cookiecutter.ip }}"
-    devbox.vm.box = "elastic/ubuntu-16.04-x86_64"
+  config.vm.define 'devbox', primary: true do |devbox|
+    devbox.vm.hostname = '{{ cookiecutter.hostname }}'
+    devbox.vm.network 'private_network', ip: '{{ cookiecutter.ip }}'
+    devbox.vm.box = 'elastic/ubuntu-16.04-x86_64'
 
-    devbox.vm.synced_folder ".", "/vagrant",
-      type:          "nfs",
-      mount_options: ["rw", "vers=3", "noatime", "async"]
+    devbox.vm.synced_folder '.', '/vagrant',
+      type:          'nfs',
+      mount_options: ['rw', 'vers=3', 'noatime', 'async']
 
-    devbox.vm.provider "virtualbox" do |vb|
+    devbox.vm.provider 'virtualbox' do |vb|
       vb.gui    = false
       vb.memory = {{ cookiecutter.memory }}
       vb.cpus   = {{ cookiecutter.cpus }}
     end
 
-    devbox.vm.provider "libvirt" do |lv|
+    devbox.vm.provider 'libvirt' do |lv|
       lv.nested               = false
       lv.memory               = {{ cookiecutter.memory }}
       lv.cpus                 = {{ cookiecutter.cpus }}
-      lv.cpu_mode             = "host-passthrough"
+      lv.cpu_mode             = 'host-passthrough'
       lv.machine_virtual_size = 60
-      lv.disk_bus             = "virtio"
-      lv.nic_model_type       = "virtio"
+      lv.disk_bus             = 'virtio'
+      lv.nic_model_type       = 'virtio'
     end
 
-    if not Vagrant.has_plugin?("vagrant-host-shell")
-      print "Ansible Galaxy roles should be installed."
-      print "Please run ansible-galaxy install -r ansible-requirements.yaml"
-      print "Or install vagrant-host-shell plugin"
+    if not Vagrant.has_plugin?('vagrant-host-shell')
+      print 'Ansible Galaxy roles should be installed.'
+      print 'Please run ansible-galaxy install -r ansible-requirements.yaml'
+      print 'Or install vagrant-host-shell plugin'
     end
 
     devbox.vm.provision :host_shell do |host_shell|
-      host_shell.inline = 'ansible-galaxy install -r ansible-requirements.yaml'
+      host_shell.inline = "cd '#{CURRENT_DIR}' && rm -rf '#{CURRENT_DIR}' && ansible-galaxy install -r '#{CURRENT_DIR}/ansible-requirements.yaml'"
     end
 
-    devbox.vm.provision "ansible" do |ansible|
-      ansible.playbook = "provision/site.yaml"
-      ansible.compatibility_mode = "2.0"
+    devbox.vm.provision 'ansible' do |ansible|
+      ansible.playbook = 'provision/site.yaml'
+      ansible.tags = ANSIBLE_TAGS
+      ansible.compatibility_mode = '2.0'
     end
   end
 end
