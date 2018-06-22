@@ -12,20 +12,6 @@
       'apt-get update && apt-get install -y --no-install-recommends aptitude python python-apt python3-apt'
     changed_when: false
 
-  - name: remove puppet labs stuff
-    file:
-      name: "{{ item }}"
-      state: absent
-    with_items:
-    - /etc/apt/sources.list.d/puppetlabs-pc1.list
-    - /etc/apt/trusted.gpg.d/puppetlabs-pc1-keyring.gpg
-
-  - name: remove elastic user
-    user:
-      name: elastic
-      state: absent
-      remove: yes
-
 
 - hosts: all
   environment:
