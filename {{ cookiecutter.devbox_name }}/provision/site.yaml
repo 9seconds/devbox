@@ -18,6 +18,7 @@
     LANG: C.UTF-8
     LC_ALL: C.UTF-8
     DEBIAN_FRONTEND: noninteractive
+    DISABLE_ITERM2: 1
   gather_facts: true
   roles:
   - {{ cookiecutter.devbox_role }}
