@@ -32,11 +32,11 @@ Vagrant.configure('2') do |config|
     print 'Or install vagrant-host-shell plugin'
   end
 
-  devbox.vm.provision :host_shell do |host_shell|
+  config.vm.provision :host_shell do |host_shell|
     host_shell.inline = "cd '#{CURRENT_DIR}' && rm -rf '#{CURRENT_DIR}' && ansible-galaxy install -r '#{CURRENT_DIR}/ansible-requirements.yaml'"
   end
 
-  # devbox.vm.provision 'ansible' do |ansible|
+  # config.vm.provision 'ansible' do |ansible|
   #   ansible.playbook = 'provision/site.yaml'
   #   ansible.ask_vault_pass = true
   #   ansible.tags = ANSIBLE_TAGS
