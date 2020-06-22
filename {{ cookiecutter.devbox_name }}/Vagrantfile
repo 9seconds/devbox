@@ -33,7 +33,7 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.provision :host_shell do |host_shell|
-    host_shell.inline = "cd '#{CURRENT_DIR}' && rm -rf '#{CURRENT_DIR}' && ansible-galaxy install -r '#{CURRENT_DIR}/ansible-requirements.yaml'"
+    host_shell.inline = "cd '#{CURRENT_DIR}' && find provision -depth 2 -type d | grep -vE '^provision/roles/{{ cookiecutter.devbox_role }}' | xargs rm -rf && ansible-galaxy install -r '#{CURRENT_DIR}/ansible-requirements.yaml'"
   end
 
   # config.vm.provision 'ansible' do |ansible|
