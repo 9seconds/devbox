@@ -4,5 +4,6 @@
     "devbox_role": "{{ cookiecutter.devbox_name }}-devbox",
     "memory": 4096,
     "cpus": 3,
-    "ip": "10.0.0.10"
+    "ip": "10.0.0.10",
+    "disk_size": 60
 }
