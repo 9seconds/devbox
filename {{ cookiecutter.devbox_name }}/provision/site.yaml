@@ -1,17 +1,4 @@
 ---
-# vim: set ft=ansible:
-
-
-- hosts: all
-  become: true
-  gather_facts: false
-  tasks:
-  - name: install ansible dependencies
-    raw: >
-      sh -c
-      'apt-get update && apt-get install -y --no-install-recommends aptitude python python-apt python3-apt'
-    changed_when: false
-
 
 - hosts: all
   environment:
@@ -19,6 +6,5 @@
     LC_ALL: C.UTF-8
     DEBIAN_FRONTEND: noninteractive
     DISABLE_ITERM2: 1
-  gather_facts: true
   roles:
-  - {{ cookiecutter.devbox_role }}
+    - {{ cookiecutter.devbox_role }}
