@@ -5,6 +5,5 @@
     LANG: C.UTF-8
     LC_ALL: C.UTF-8
     DEBIAN_FRONTEND: noninteractive
-    DISABLE_ITERM2: 1
   roles:
     - {{ cookiecutter.devbox_role }}
