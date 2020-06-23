@@ -1,18 +1,6 @@
 ---
 
 - hosts: all
-  become: true
-  tasks:
-    - name: disable motd
-      lineinfile:
-        path: /etc/pam.d/sshd
-        regexp: "^{{ item }}"
-        state: absent
-      with_items:
-        - session\s+optional\s+pam_motd.so\s+motd=/run/motd.dynamic
-        - session\s+optional\s+pam_motd.so noupdate
-
-- hosts: all
   environment:
     LANG: C.UTF-8
     LC_ALL: C.UTF-8
