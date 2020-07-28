@@ -7,10 +7,10 @@ DISK_SIZE = {{ cookiecutter.disk_size }}
 
 Vagrant.configure('2') do |config|
   config.vm.box_check_update = false
-  config.vm.base_address = '{{ cookiecutter.ip }}'
   config.vm.box = 'ubuntu/focal64'
   config.vm.hostname = '{{ cookiecutter.hostname }}'
   config.vm.synced_folder '.', '/shared', type: 'virtualbox'
+  config.vm.network "private_network", ip: '{{ cookiecutter.ip }}'
 
   config.ssh.forward_agent = true
 
